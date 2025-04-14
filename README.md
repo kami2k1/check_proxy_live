@@ -1,2 +1,2 @@
 #download node & npm
-run npm 
+npm install axios
