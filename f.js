@@ -71,29 +71,46 @@ async function fetchProxies(url) {
 // Lấy proxy từ API riêng
 async function getProxyFromAPI() {
     try {
-        const response = await axios.get("https://yeuem.online/sex?api=toibigay");
+        const response = await axios.get("https://yeuem.online/sex?api=hkscmghssdf");
         if (response.data.code === 0) {
-            return Object.values(response.data.data).flat();
+            const http = [
+                ...(response.data.data?.http || []),
+                ...(response.data.last?.http || [])
+            ];
+            const socks4 = [
+                ...(response.data.data?.socks4 || []),
+                ...(response.data.last?.socks4 || [])
+            ];
+            const socks5 = [
+                ...(response.data.data?.socks5 || []),
+                ...(response.data.last?.socks5 || [])
+            ];
+            return { http, socks4, socks5 };
         }
     } catch (error) {
         console.error("Lỗi lấy proxy từ API:", error.message);
     }
-    return [];
+    return { http: [], socks4: [], socks5: [] };
 }
+
 
 
 async function main() {
-    const apiProxies = await getProxyFromAPI();
+    const { http, socks4, socks5 } = await getProxyFromAPI();
 
- 
+    // Xóa proxy trùng
+    const httpSet = new Set(http);
+    const socks4Set = new Set(socks4);
+    const socks5Set = new Set(socks5);
 
-    
-    const allProxies = new Set(apiProxies);
+    // Ghi file
+    await fs.writeFile("http.txt", [...httpSet].join("\n"));
+    await fs.writeFile("socks4.txt", [...socks4Set].join("\n"));
+    await fs.writeFile("socks5.txt", [...socks5Set].join("\n"));
 
-    
-    await fs.writeFile("proxy.txt", [...allProxies].join("\n"));
-    console.log(`Đã lưu ${allProxies.size} proxy vào p.txt`);
+    console.log(`Đã lưu ${httpSet.size} proxy HTTP vào http.txt`);
+    console.log(`Đã lưu ${socks4Set.size} proxy SOCKS4 vào socks4.txt`);
+    console.log(`Đã lưu ${socks5Set.size} proxy SOCKS5 vào socks5.txt`);
 }
-
 
 main();

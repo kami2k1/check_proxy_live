@@ -1,0 +1,6 @@
+import requests
+headers = {
+    "cookie":"cf_clearance=U_g6w.Th11TqvrR5L07qMuCFLy38o5k4n2Q9SZOJcQI-1744708110-1.2.1.1-OkyEHmDoavg.7ARUpMtIsTcRCroOxkIB5hMc3gKiwXDarwmvrGH0NBBZNL7jwTaPtSkghHI1azDCguM9SDDoIkColyij8F1En4zabb1qWboiHar_17mPNq4GKPp2KrR3_LN58CH93dXNJhdzOinG7l4SHadSfZdvlw_8.5bJTuY2UQgwux0DLAGUzz0i4K7Zh316Cn.28ga28SWV0FZbU6f_Y28rKbyERcQ9RBrEpeJCqrdKB1.cRwbkrDnRNZSY39_Ekk6azUvEGsl.sngi1Z5..hkT.A_x8hn9AZZtgOZmPtrnsESyWiNkZfwtFS0M4ehdry_Z8IK9izjHR921Ulm0ylBH1W_cU5I9Z1_aPq0uKlaTeH2RgLcNKXfwkVEr"
+}
+r = requests.get("https://anime.id.vn/thum/30520732546141125309843234813629174219889740145039660754208656279277258097/kz/4827")
+print(r.status_code)
